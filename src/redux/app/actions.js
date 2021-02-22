@@ -1,9 +1,9 @@
 const actions = {
-  FETCH_REPOS_LIST_REQUEST: 'FETCH_REPOS_LIST_REQUEST',
-  FETCH_REPOS_LIST_SUCCESS: 'FETCH_REPOS_LIST_SUCCESS',
+  HANDLE_ERRORS: 'HANDLE_ERRORS',
 
-  fetchReposList: () => ({
-    type: actions.FETCH_REPOS_LIST_REQUEST,
+  handleErrors: errors => ({
+    type: actions.HANDLE_ERRORS,
+    payload: errors,
   }),
 };
 

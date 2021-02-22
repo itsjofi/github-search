@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux';
 
 //REDUCERS
-import App from './app/actions';
+import Repositories from './repositories/reducer';
 
 export default combineReducers({
-  App,
+  Repositories,
 });
