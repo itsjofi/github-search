@@ -3,9 +3,10 @@ export const styles = {
     ...styles,
     border: 'none',
   }),
-  control: (styles, { isFocused }) => ({
+  control: (styles, { isDisabled }) => ({
     ...styles,
     boxShadow: 'none',
+    opacity: isDisabled ? '0.5' : '1',
     '&:hover': {
       border: 'none',
     },

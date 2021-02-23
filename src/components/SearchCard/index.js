@@ -1,24 +1,27 @@
 import React from 'react';
 
 //COMPONENTS
-import { Form } from 'react-final-form';
-import { Field } from '../';
+import { Form, Field } from 'react-final-form';
+import { Button, Select } from '../';
 
 //UI
-import { Grid, Button, CircularProgress } from '@material-ui/core';
-import { useStyles } from './index.style';
+import { Grid, CircularProgress, Typography } from '@material-ui/core';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSearch } from '@fortawesome/free-solid-svg-icons';
+import * as styled from './index.style';
 
 //UTILS
 import { assembleQuery } from './helper';
+import { validate } from './validate';
 
 //REDUX
 import { connect } from 'react-redux';
 import repositoriesActions from '../../redux/repositories/actions';
 
+const ReactSelectAdapter = ({ input, ...rest }) => <Select {...input} {...rest} />;
+
 const SearchCard = props => {
   const [isLoading, setIsLoading] = React.useState(false);
-
-  const classes = useStyles();
 
   const onSubmit = values => {
     const query = assembleQuery(values);
@@ -29,26 +32,51 @@ const SearchCard = props => {
   return (
     <Form
       onSubmit={onSubmit}
+      validate={validate}
       render={formProps => {
         const { handleSubmit } = formProps;
 
+        console.log('formProps', formProps);
+
         return (
-          <form className={classes.form} onSubmit={handleSubmit} noValidate={true}>
-            <Grid container spacing={2} className={classes.container}>
-              <Grid item xs={12}>
-                <Field mode='select' name='languages' />
+          <form onSubmit={handleSubmit} noValidate={true}>
+            <styled.Container>
+              <Grid item md={6} sm={12} xs={12}>
+                <styled.Paper>
+                  <Grid container spacing={3} justify='center'>
+                    <Grid item xs={12}>
+                      <styled.TitleWrapper>
+                        <FontAwesomeIcon icon={faSearch} size='2x' />
+                        <Typography variant='h6'>Buscar repositórios por linguagem</Typography>
+                      </styled.TitleWrapper>
+                    </Grid>
+                    <Grid item xs={12}>
+                      <styled.SearchWrapper>
+                        <Field
+                          component={ReactSelectAdapter}
+                          options={[
+                            { value: 'Javascript', label: 'Javascript' },
+                            { value: 'Go', label: 'Go' },
+                            { value: 'PHP', label: 'PHP' },
+                            { value: 'Rust', label: 'Rust' },
+                            { value: 'Typescript', label: 'Typescript' },
+                            { value: 'Node', label: 'Node' },
+                          ]}
+                          name='languages'
+                          isDisabled={isLoading}
+                        />
+                        <Button
+                          disabled={isLoading}
+                          type='submit'
+                          endIcon={isLoading ? <CircularProgress size={15} /> : null}>
+                          {isLoading ? 'Buscando' : 'Buscar'}
+                        </Button>
+                      </styled.SearchWrapper>
+                    </Grid>
+                  </Grid>
+                </styled.Paper>
               </Grid>
-              <Grid item xs={12}>
-                <Button
-                  type='submit'
-                  disabled={isLoading}
-                  fullWidth={true}
-                  variant='contained'
-                  color='primary'>
-                  {isLoading ? <CircularProgress size={30} /> : 'Buscar'}
-                </Button>
-              </Grid>
-            </Grid>
+            </styled.Container>
           </form>
         );
       }}

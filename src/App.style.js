@@ -1,15 +1,7 @@
-import { makeStyles } from '@material-ui/core/styles';
-import { colorPalette } from './style/colorPalette';
+import styled from 'styled-components';
 
-export const useStyles = makeStyles(theme => ({
-  container: {
-    backgroundColor: colorPalette.background,
-    color: colorPalette.text,
-    minHeight: '100vh',
-  },
-  wrapper: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-}));
+export const Container = styled.div`
+  background-color: #24292e;
+  color: #fff;
+  min-height: 100vh;
+`;

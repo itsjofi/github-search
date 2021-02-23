@@ -1,7 +1,9 @@
 import actions from './actions';
 
 const initialState = {
-  list: {},
+  list: {
+    items: [],
+  },
 };
 
 export default function repositoresReducer(state = initialState, action) {
