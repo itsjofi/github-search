@@ -1,6 +1,12 @@
 import fetch from 'isomorphic-unfetch';
 
-import { apiUrls } from './config';
+const apiUrl = 'https://api.github.com';
+
+const apiUrls = {
+  repositories: apiUrl + '/search/repositories',
+};
+
+export { apiUrls };
 
 const parseResponse = async res => {
   const json = await res.json();

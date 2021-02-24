@@ -26,7 +26,9 @@ export function* fetchRepositoriesByLanguageRequest() {
     } catch (error) {
       yield put({ type: appActions.SWITCH_IS_LOADING, payload: false });
 
-      return error;
+      if (error && error.message) {
+        window.alert(error.message);
+      }
     }
   });
 }

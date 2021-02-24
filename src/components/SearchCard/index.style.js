@@ -51,7 +51,3 @@ export const Button = styled.button`
       opacity: 0.5;
     `}
 `;
-
-export const ButtonEndIcon = styled.span`
-  margin-left: 0.5rem;
-`;

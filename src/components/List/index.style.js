@@ -40,16 +40,17 @@ export const ListItem = styled.li`
   display: flex;
   flex-direction: ${props => (props.direction ? props.direction : 'column')};
   align-items: flex-start;
-  justify-content: flex-start;
+  justify-content: ${props => (props.direction ? 'flex-start' : 'center')};
   box-sizing: border-box;
   position: relative;
   width: 100%;
   padding-top: 8px;
   padding-bottom: 8px;
   cursor: ${props => (props.cursor ? props.cursor : 'default')};
+  min-height: ${props => (props.direction ? 'unset' : '4.7rem')};
 
   & > span {
-    margin: ${props => (props.direction ? '0.5rem' : '0.5rem 0 0 0')};
+    margin: ${props => (props.direction ? '0.5rem 0.5rem 0.5rem 0' : '0.5rem 0 0 0')};
   }
 `;
 
@@ -58,7 +59,7 @@ export const Divider = styled.li`
   height: 1px;
   margin: 0;
   flex-shrink: 0;
-  background-color: rgba(0, 0, 0, 0.12);
+  background-color: #fff;
 `;
 
 export const Title = styled.span`

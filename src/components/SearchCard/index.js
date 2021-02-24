@@ -27,13 +27,8 @@ const SearchCard = props => {
               </styled.TitleWrapper>
             </Grid>
             <Grid item xs={12}>
-              <styled.Button onClick={onSearch}>
-                {props.isLoading ? 'Buscando' : 'Buscar'}
-                {props.isLoading ? (
-                  <styled.ButtonEndIcon>
-                    <CircularProgress size={15} />
-                  </styled.ButtonEndIcon>
-                ) : null}
+              <styled.Button disabled={props.isLoading} onClick={onSearch}>
+                {props.isLoading ? 'Buscando...' : 'Buscar'}
               </styled.Button>
             </Grid>
           </Grid>
