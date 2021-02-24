@@ -7,17 +7,11 @@ import './index.css';
 import { Provider } from 'react-redux';
 import store from './redux/store';
 
-//UI
-import { MuiThemeProvider } from '@material-ui/core';
-import theme from './style/theme';
-
 ReactDOM.render(
   <Provider store={store}>
-    <MuiThemeProvider theme={theme}>
-      <React.StrictMode>
-        <App />
-      </React.StrictMode>
-    </MuiThemeProvider>
+    <React.StrictMode>
+      <App />
+    </React.StrictMode>
   </Provider>,
   document.getElementById('root')
 );

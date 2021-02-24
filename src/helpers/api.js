@@ -12,9 +12,29 @@ const parseResponse = async res => {
   throw json;
 };
 
+const parseOptions = options => {
+  let params = '';
+
+  if (options) {
+    Object.keys(options).map((option, index) => {
+      let value = Object.values(options)[index];
+
+      if (value !== null || value !== undefined) {
+        params += `${index !== 0 ? '&' : ''}${option}=${value}`;
+      }
+
+      return option;
+    });
+  }
+
+  return params;
+};
+
 class Api {
-  fetchRepositoriesByLanguage = async languages => {
-    return await fetch(`${apiUrls.repositories}?q=${languages}`, {
+  fetchRepositoriesByLanguage = async options => {
+    const params = parseOptions(options);
+
+    return await fetch(`${apiUrls.repositories}?${params}`, {
       method: 'get',
     }).then(parseResponse);
   };

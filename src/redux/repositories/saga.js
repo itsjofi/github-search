@@ -1,31 +1,32 @@
-import { all, spawn, takeEvery, call, select, put, fork } from 'redux-saga/effects';
+import { all, spawn, takeEvery, call, put } from 'redux-saga/effects';
 
 //UTILS
 import Api from '../../helpers/api';
 
 //ACTIONS
 import actions from './actions';
+import appActions from '../app/actions';
 
 export function* fetchRepositoriesByLanguageRequest() {
-  yield takeEvery(actions.FETCH_REPOSITORIES_REQUEST, function* ({ payload, switchLoading }) {
+  yield takeEvery(actions.FETCH_REPOSITORIES_REQUEST, function* () {
     try {
-      if (typeof switchLoading === 'function') {
-        switchLoading(true);
-      }
+      yield put({ type: appActions.SWITCH_IS_LOADING, payload: true });
 
-      const result = yield call(Api.fetchRepositoriesByLanguage, 'language:Javascript+language:Go');
+      let options = {
+        q: 'language:Javascript+language:Go+language:Python+language:PHP+language:Ruby',
+        sort: 'stars',
+        order: 'desc',
+      };
+
+      const result = yield call(Api.fetchRepositoriesByLanguage, options);
 
       yield put({ type: actions.FETCH_REPOSITORIES_SUCCESS, payload: result });
 
-      if (typeof switchLoading === 'function') {
-        switchLoading(false);
-      }
+      yield put({ type: appActions.SWITCH_IS_LOADING, payload: false });
     } catch (error) {
-      if (typeof switchLoading === 'function') {
-        switchLoading(false);
-      }
+      yield put({ type: appActions.SWITCH_IS_LOADING, payload: false });
 
-      console.log('error -->', error);
+      return error;
     }
   });
 }

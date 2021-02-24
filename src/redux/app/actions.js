@@ -1,9 +1,9 @@
 const actions = {
-  HANDLE_ERRORS: 'HANDLE_ERRORS',
+  SWITCH_IS_LOADING: 'SWITCH_IS_LOADING',
 
-  handleErrors: errors => ({
-    type: actions.HANDLE_ERRORS,
-    payload: errors,
+  switchIsLoading: isLoading => ({
+    type: actions.SWITCH_IS_LOADING,
+    payload: isLoading,
   }),
 };
 

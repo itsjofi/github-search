@@ -1,5 +1,5 @@
 import { Grid } from '@material-ui/core';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 export const TitleWrapper = styled.div`
   display: flex;
@@ -30,4 +30,28 @@ export const SearchWrapper = styled.div`
   & > * {
     margin: 0.5rem;
   }
+`;
+
+export const Button = styled.button`
+  border: none;
+  outline: none;
+  height: 2.375rem;
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.375rem;
+  cursor: pointer;
+  width: 100%;
+
+  ${props =>
+    props.disabled &&
+    css`
+      cursor: default;
+      opacity: 0.5;
+    `}
+`;
+
+export const ButtonEndIcon = styled.span`
+  margin-left: 0.5rem;
 `;
