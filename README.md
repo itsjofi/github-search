@@ -1,6 +1,6 @@
 ## Instalação
 
-Para clonar e rodar esta aplicação, você vai precisar <a href="https://git-scm.com/" target="_blank">Git</a>, <a href="https://nodejs.org/en/" target="_blank">Node.js</a> and <a href="https://yarnpkg.com/" target="_blank">Yarn</a> instalado no seu computador. -->
+Para clonar e rodar esta aplicação, você vai precisar dos seguintes recursos <a href="https://git-scm.com/" target="_blank">Git</a>, <a href="https://nodejs.org/en/" target="_blank">Node.js</a> e <a href="https://yarnpkg.com/" target="_blank">Yarn</a> instalado no seu computador.
 
 ### Instalação
 
@@ -23,6 +23,6 @@ $ yarn start
 ### Testes
 
 ```bash
-#Para rodar os teste basta rodar o seguinte comando
+#Para rodar os testes basta rodar o seguinte comando
 $ yarn test
 ```
