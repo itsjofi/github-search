@@ -1,7 +1,7 @@
 import React from 'react';
 
 //UI
-import { Grid, Typography, CircularProgress } from '@material-ui/core';
+import { Grid, Typography } from '@material-ui/core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import * as styled from './index.style';
