@@ -14,8 +14,15 @@ $ cd github-search
 # Instale as dependências
 $ yarn install
 
-# Rodas
+# Inicie a aplicação
 $ yarn start
 
 # rodando na porta 3000
+```
+
+### Testes
+
+```bash
+#Para rodar os teste basta rodar o seguinte comando
+$ yarn test
 ```
