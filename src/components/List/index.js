@@ -4,7 +4,16 @@ import React from 'react';
 import { Tooltip, CircularProgress } from '@material-ui/core';
 import * as styled from './index.style';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faStar, faCodeBranch, faFile, faCode } from '@fortawesome/free-solid-svg-icons';
+import {
+  faStar,
+  faCodeBranch,
+  faFile,
+  faCode,
+  faCalendar,
+} from '@fortawesome/free-solid-svg-icons';
+
+//UTILS
+import dayjs from 'dayjs';
 
 //REDUX
 import { connect } from 'react-redux';
@@ -43,7 +52,9 @@ const List = props => {
         hyperlink = 'http://' + hyperlink;
       }
 
-      return space + '<a style="color:white" target="_blank" href="' + hyperlink + '">' + url + '</a>';
+      return (
+        space + '<a style="color:white" target="_blank" href="' + hyperlink + '">' + url + '</a>'
+      );
     });
 
   return (
@@ -51,11 +62,12 @@ const List = props => {
       <styled.ListWrapper item md={6} sm={12} xs={12}>
         <styled.UnorderedList>
           {props.list.items.map((item, index) => {
-            let isLastItem = !!(index === props.list.items.length - 1);
-
             return (
               <React.Fragment key={item.id}>
-                <styled.ListItem cursor='pointer' onClick={() => handleExpand(item.id)}>
+                <styled.ListItem
+                  cursor='pointer'
+                  withBorder={true}
+                  onClick={() => handleExpand(item.id)}>
                   <styled.Title>{item.full_name}</styled.Title>
                   <span
                     dangerouslySetInnerHTML={{
@@ -63,39 +75,45 @@ const List = props => {
                     }}></span>
                 </styled.ListItem>
 
-                {!isLastItem ? <styled.Divider /> : null}
-
                 {expanded.includes(item.id) ? (
-                  <styled.ListItem direction='row'>
-                    {item.language ? (
-                      <Tooltip title='Linguagem' arrow={true}>
+                  <>
+                    <styled.ListItem backgroundColor='rgba(0, 0,0,0.1)'>
+                      {item.language ? (
+                        <Tooltip title='Linguagem' arrow={true}>
+                          <span>
+                            <FontAwesomeIcon icon={faCode} style={{ marginRight: '0.3rem' }} />{' '}
+                            {item.language}
+                          </span>
+                        </Tooltip>
+                      ) : null}
+                      <Tooltip title='Estrelas' arrow={true}>
                         <span>
-                          <FontAwesomeIcon icon={faCode} style={{ marginRight: '0.3rem' }} />{' '}
-                          {item.language}
+                          <FontAwesomeIcon icon={faStar} style={{ marginRight: '0.3rem' }} />{' '}
+                          {item.stargazers_count}
                         </span>
                       </Tooltip>
-                    ) : null}
-                    <Tooltip title='Estrelas' arrow={true}>
-                      <span>
-                        <FontAwesomeIcon icon={faStar} style={{ marginRight: '0.3rem' }} />{' '}
-                        {item.stargazers_count}
-                      </span>
-                    </Tooltip>
-                    <Tooltip title='Forks' arrow={true}>
-                      <span>
-                        <FontAwesomeIcon icon={faCodeBranch} style={{ marginRight: '0.3rem' }} />{' '}
-                        {item.forks_count}
-                      </span>
-                    </Tooltip>
-                    {item.license ? (
-                      <Tooltip title='Licença' arrow={true}>
+                      <Tooltip title='Forks' arrow={true}>
                         <span>
-                          <FontAwesomeIcon icon={faFile} style={{ marginRight: '0.3rem' }} />{' '}
-                          {item.license.name}
+                          <FontAwesomeIcon icon={faCodeBranch} style={{ marginRight: '0.3rem' }} />{' '}
+                          {item.forks_count}
                         </span>
                       </Tooltip>
-                    ) : null}
-                  </styled.ListItem>
+                      {item.license ? (
+                        <Tooltip title='Licença' arrow={true}>
+                          <span>
+                            <FontAwesomeIcon icon={faFile} style={{ marginRight: '0.3rem' }} />{' '}
+                            {item.license.name}
+                          </span>
+                        </Tooltip>
+                      ) : null}
+                      <Tooltip title='Criado em'>
+                        <span>
+                          <FontAwesomeIcon icon={faCalendar} style={{ marginRight: '0.3rem' }} />{' '}
+                          {dayjs(item.created_at).format('DD/MM/YYYY')}
+                        </span>
+                      </Tooltip>
+                    </styled.ListItem>
+                  </>
                 ) : null}
               </React.Fragment>
             );

@@ -35,17 +35,16 @@ export const UnorderedList = styled.ul`
 `;
 
 export const ListItem = styled.li`
-  padding-left: 1rem;
-  padding-right: 1rem;
   display: flex;
-  flex-direction: ${props => (props.direction ? props.direction : 'column')};
+  flex-direction: column;
   align-items: flex-start;
   justify-content: ${props => (props.direction ? 'flex-start' : 'center')};
+  background-color: ${props => (props.backgroundColor ? props.backgroundColor : 'unset')};
+  border-bottom: ${props => (props.backgroundColor ? 'none' : '1px solid rgba(0,0,0,0.2)')};
   box-sizing: border-box;
   position: relative;
   width: 100%;
-  padding-top: 8px;
-  padding-bottom: 8px;
+  padding: 1rem;
   cursor: ${props => (props.cursor ? props.cursor : 'default')};
   min-height: ${props => (props.direction ? 'unset' : '4.7rem')};
 
