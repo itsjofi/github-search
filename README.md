@@ -21,6 +21,6 @@ $ yarn start
 ### Testes
 
 ```bash
-#Para rodar os testes basta rodar o seguinte comando
+# Para rodar os testes basta rodar o seguinte comando
 $ yarn test
 ```

@@ -14,6 +14,13 @@ export const ListWrapper = styled(Grid)`
   max-height: 70vh;
 `;
 
+export const HeaderWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+`;
+
 export const LoaderWrapper = styled(Grid)`
   margin: 1rem 0 !important;
   overflow: hidden;
@@ -36,7 +43,7 @@ export const UnorderedList = styled.ul`
 
 export const ListItem = styled.li`
   display: flex;
-  flex-direction: column;
+  flex-direction: ${props => (props.direction ? props.direction : 'column')};
   align-items: flex-start;
   justify-content: ${props => (props.direction ? 'flex-start' : 'center')};
   background-color: ${props => (props.backgroundColor ? props.backgroundColor : 'unset')};
@@ -49,8 +56,16 @@ export const ListItem = styled.li`
   min-height: ${props => (props.direction ? 'unset' : '4.7rem')};
 
   & > span {
-    margin: ${props => (props.direction ? '0.5rem 0.5rem 0.5rem 0' : '0.5rem 0 0 0')};
+    margin: 0.5rem 0 0 0;
   }
+`;
+
+export const DetailsWrapper = styled.div`
+  margin: 0.5rem;
+`;
+
+export const Text = styled.span`
+  margin: 0.5rem;
 `;
 
 export const Divider = styled.li`

@@ -1,5 +1,8 @@
 import React from 'react';
 
+//COMPONENTS
+import Chart from '../Chart';
+
 //UI
 import { Tooltip, CircularProgress } from '@material-ui/core';
 import * as styled from './index.style';
@@ -68,7 +71,15 @@ const List = props => {
                   cursor='pointer'
                   withBorder={true}
                   onClick={() => handleExpand(item.id)}>
-                  <styled.Title>{item.full_name}</styled.Title>
+                  <styled.HeaderWrapper>
+                    <styled.Title>{item.full_name}</styled.Title>
+                    <Tooltip title='Estrelas' arrow={true}>
+                      <span>
+                        <FontAwesomeIcon icon={faStar} style={{ marginRight: '0.3rem' }} />{' '}
+                        {item.stargazers_count}
+                      </span>
+                    </Tooltip>
+                  </styled.HeaderWrapper>
                   <span
                     dangerouslySetInnerHTML={{
                       __html: createTextLinks(item.description),
@@ -77,41 +88,40 @@ const List = props => {
 
                 {expanded.includes(item.id) ? (
                   <>
-                    <styled.ListItem backgroundColor='rgba(0, 0,0,0.1)'>
-                      {item.language ? (
-                        <Tooltip title='Linguagem' arrow={true}>
-                          <span>
-                            <FontAwesomeIcon icon={faCode} style={{ marginRight: '0.3rem' }} />{' '}
-                            {item.language}
-                          </span>
+                    <styled.ListItem backgroundColor='rgba(0, 0, 0, 0.1)'>
+                      <styled.DetailsWrapper>
+                        {item.language ? (
+                          <Tooltip title='Linguagem' arrow={true}>
+                            <styled.Text>
+                              <FontAwesomeIcon icon={faCode} style={{ marginRight: '0.3rem' }} />{' '}
+                              {item.language}
+                            </styled.Text>
+                          </Tooltip>
+                        ) : null}
+
+                        <Tooltip title='Forks' arrow={true}>
+                          <styled.Text>
+                            <FontAwesomeIcon
+                              icon={faCodeBranch}
+                              style={{ marginRight: '0.3rem' }}
+                            />{' '}
+                            {item.forks_count}
+                          </styled.Text>
                         </Tooltip>
-                      ) : null}
-                      <Tooltip title='Estrelas' arrow={true}>
-                        <span>
-                          <FontAwesomeIcon icon={faStar} style={{ marginRight: '0.3rem' }} />{' '}
-                          {item.stargazers_count}
-                        </span>
-                      </Tooltip>
-                      <Tooltip title='Forks' arrow={true}>
-                        <span>
-                          <FontAwesomeIcon icon={faCodeBranch} style={{ marginRight: '0.3rem' }} />{' '}
-                          {item.forks_count}
-                        </span>
-                      </Tooltip>
-                      {item.license ? (
                         <Tooltip title='Licença' arrow={true}>
-                          <span>
+                          <styled.Text>
                             <FontAwesomeIcon icon={faFile} style={{ marginRight: '0.3rem' }} />{' '}
-                            {item.license.name}
-                          </span>
+                            {item.license ? item.license.name : 'Sem licença'}
+                          </styled.Text>
                         </Tooltip>
-                      ) : null}
-                      <Tooltip title='Criado em'>
-                        <span>
-                          <FontAwesomeIcon icon={faCalendar} style={{ marginRight: '0.3rem' }} />{' '}
-                          {dayjs(item.created_at).format('DD/MM/YYYY')}
-                        </span>
-                      </Tooltip>
+                        <Tooltip title='Criado em'>
+                          <styled.Text>
+                            <FontAwesomeIcon icon={faCalendar} style={{ marginRight: '0.3rem' }} />{' '}
+                            {dayjs(item.created_at).format('DD/MM/YYYY')}
+                          </styled.Text>
+                        </Tooltip>
+                      </styled.DetailsWrapper>
+                      <Chart />
                     </styled.ListItem>
                   </>
                 ) : null}
