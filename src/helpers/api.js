@@ -3,7 +3,8 @@ import fetch from 'isomorphic-unfetch';
 const apiUrl = 'https://api.github.com';
 
 const apiUrls = {
-  repositories: apiUrl + '/search/repositories',
+  searchRepos: apiUrl + '/search/repositories',
+  repos: apiUrl + '/repos',
 };
 
 export { apiUrls };
@@ -40,7 +41,12 @@ class Api {
   fetchRepositoriesByLanguage = async options => {
     const params = parseOptions(options);
 
-    return await fetch(`${apiUrls.repositories}?${params}`, {
+    return await fetch(`${apiUrls.searchRepos}?${params}`, {
+      method: 'get',
+    }).then(parseResponse);
+  };
+  fetchRepositoryCommitActivity = async (owner, repo) => {
+    return await fetch(`${apiUrls.repos}/${owner}/${repo}/stats/participation`, {
       method: 'get',
     }).then(parseResponse);
   };

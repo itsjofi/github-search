@@ -1,4 +1,4 @@
-import { all, spawn, takeEvery, call, put } from 'redux-saga/effects';
+import { all, spawn, takeEvery, call, put, select } from 'redux-saga/effects';
 
 //UTILS
 import Api from '../../helpers/api';
@@ -33,6 +33,52 @@ export function* fetchRepositoriesByLanguageRequest() {
   });
 }
 
+export function* fetchRepositoryCommitActivityRequest() {
+  yield takeEvery(
+    actions.FETCH_REPOSITORY_COMMIT_ACTIVITY_REQUEST,
+    function* ({ owner, repo, switchLoading, id }) {
+      try {
+        if (typeof switchLoading === 'function') {
+          switchLoading(true);
+        }
+        const result = yield call(Api.fetchRepositoryCommitActivity, owner, repo);
+
+        if (result) {
+          let ownerCount = result.owner,
+            allCount = result.all,
+            newCount = {};
+
+          Object.values(ownerCount).forEach((count, index) => {
+            Object.values(allCount).forEach((c, i) => {
+              if (index === i) {
+                newCount[index] = count + c;
+              }
+            });
+          });
+
+          yield put({
+            type: actions.FETCH_REPOSITORY_COMMIT_ACTIVITY_SUCCESS,
+            payload: {
+              [id]: newCount,
+            },
+          });
+        }
+
+        if (typeof switchLoading === 'function') {
+          switchLoading(false);
+        }
+      } catch (error) {
+        if (typeof switchLoading === 'function') {
+          switchLoading(false);
+        }
+      }
+    }
+  );
+}
+
 export default function* rootSaga() {
-  yield all([spawn(fetchRepositoriesByLanguageRequest)]);
+  yield all([
+    spawn(fetchRepositoriesByLanguageRequest),
+    spawn(fetchRepositoryCommitActivityRequest),
+  ]);
 }

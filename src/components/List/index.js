@@ -20,11 +20,14 @@ import dayjs from 'dayjs';
 
 //REDUX
 import { connect } from 'react-redux';
+import repositoriesActions from '../../redux/repositories/actions';
 
+//TODO juntar de quatro em quatro semanas e formar os meses e mostra a quantidade commits por mes
 const List = props => {
   const [expanded, setExpanded] = React.useState([]);
+  const [isChartLoading, setIsChartLoading] = React.useState(false);
 
-  const handleExpand = id => {
+  const handleExpand = ({ id, owner, name }) => {
     let newExpanded = [...expanded],
       indexOfCurrentId = expanded.indexOf(id);
 
@@ -32,6 +35,10 @@ const List = props => {
       newExpanded.splice(indexOfCurrentId, 1);
     } else {
       newExpanded.push(id);
+
+      props.fetchRepositoryCommitActivity(owner.login, name, id, loading =>
+        setIsChartLoading(loading)
+      );
     }
 
     setExpanded([...newExpanded]);
@@ -70,7 +77,7 @@ const List = props => {
                 <styled.ListItem
                   cursor='pointer'
                   withBorder={true}
-                  onClick={() => handleExpand(item.id)}>
+                  onClick={() => handleExpand(item)}>
                   <styled.HeaderWrapper>
                     <styled.Title>{item.full_name}</styled.Title>
                     <Tooltip title='Estrelas' arrow={true}>
@@ -121,7 +128,7 @@ const List = props => {
                           </styled.Text>
                         </Tooltip>
                       </styled.DetailsWrapper>
-                      <Chart />
+                      {isChartLoading ? <CircularProgress /> : <Chart id={item.id} />}
                     </styled.ListItem>
                   </>
                 ) : null}
@@ -134,7 +141,12 @@ const List = props => {
   );
 };
 
-export default connect(state => ({
-  list: state.Repositories.list,
-  isLoading: state.App.isLoading,
-}))(List);
+const { fetchRepositoryCommitActivity } = repositoriesActions;
+
+export default connect(
+  state => ({
+    list: state.Repositories.list,
+    isLoading: state.App.isLoading,
+  }),
+  { fetchRepositoryCommitActivity }
+)(List);
