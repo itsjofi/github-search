@@ -15,6 +15,8 @@ export default function repositoresReducer(state = initialState, action) {
       return { ...state, list: action.payload };
     case actions.FETCH_REPOSITORY_COMMIT_ACTIVITY_SUCCESS:
       return { ...state, activity: { ...state.activity, ...action.payload } };
+    case actions.CLEAN_COMMIT_ACTIVITY:
+      return { ...state, activity: {} };
     default:
       return state;
   }

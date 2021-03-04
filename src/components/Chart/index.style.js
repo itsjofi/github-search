@@ -3,6 +3,17 @@ import styled from 'styled-components';
 export const ChartContainer = styled.div`
   width: inherit;
   height: 35vh;
+
+  & > span {
+    margin: 1rem;
+  }
+`;
+
+export const LoaderWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 export const TooltiContainer = styled.div`
@@ -13,7 +24,13 @@ export const TooltiContainer = styled.div`
   flex-direction: column;
 `;
 
-export const Title = styled.span`
-  font-weight: 800;
-  margin: 1rem;
+export const ImageContainer = styled.div`
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+
+  & > span {
+    text-align: center;
+  }
 `;

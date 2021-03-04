@@ -61,7 +61,7 @@ export const ListItem = styled.li`
 `;
 
 export const DetailsWrapper = styled.div`
-  margin: 0.5rem;
+  margin: 0.5rem 0.5rem 2rem 0.5rem;
 `;
 
 export const Text = styled.span`

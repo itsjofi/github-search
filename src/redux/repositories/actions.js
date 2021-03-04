@@ -3,6 +3,7 @@ const actions = {
   FETCH_REPOSITORIES_SUCCESS: 'FETCH_REPOSITORIES_SUCCESS',
   FETCH_REPOSITORY_COMMIT_ACTIVITY_REQUEST: 'FETCH_REPOSITORY_COMMIT_ACTIVITY_REQUEST',
   FETCH_REPOSITORY_COMMIT_ACTIVITY_SUCCESS: 'FETCH_REPOSITORY_COMMIT_ACTIVITY_SUCCESS',
+  CLEAN_COMMIT_ACTIVITY: 'CLEAN_COMMIT_ACTIVITY',
 
   fetchRepositories: () => ({
     type: actions.FETCH_REPOSITORIES_REQUEST,
@@ -13,6 +14,9 @@ const actions = {
     repo,
     switchLoading,
     id,
+  }),
+  cleanCommitActivity: () => ({
+    type: actions.CLEAN_COMMIT_ACTIVITY,
   }),
 };
 

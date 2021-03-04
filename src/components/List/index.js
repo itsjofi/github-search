@@ -22,10 +22,15 @@ import dayjs from 'dayjs';
 import { connect } from 'react-redux';
 import repositoriesActions from '../../redux/repositories/actions';
 
-//TODO juntar de quatro em quatro semanas e formar os meses e mostra a quantidade commits por mes
 const List = props => {
   const [expanded, setExpanded] = React.useState([]);
-  const [isChartLoading, setIsChartLoading] = React.useState(false);
+  const [isChartLoading, setIsChartLoading] = React.useState(null);
+
+  React.useEffect(() => {
+    if (!Object.keys(props.commitActivity).length) {
+      setExpanded([]);
+    }
+  }, [props.commitActivity]);
 
   const handleExpand = ({ id, owner, name }) => {
     let newExpanded = [...expanded],
@@ -37,7 +42,7 @@ const List = props => {
       newExpanded.push(id);
 
       props.fetchRepositoryCommitActivity(owner.login, name, id, loading =>
-        setIsChartLoading(loading)
+        setIsChartLoading(loading ? id : null)
       );
     }
 
@@ -90,7 +95,8 @@ const List = props => {
                   <span
                     dangerouslySetInnerHTML={{
                       __html: createTextLinks(item.description),
-                    }}></span>
+                    }}
+                  />
                 </styled.ListItem>
 
                 {expanded.includes(item.id) ? (
@@ -128,7 +134,7 @@ const List = props => {
                           </styled.Text>
                         </Tooltip>
                       </styled.DetailsWrapper>
-                      {isChartLoading ? <CircularProgress /> : <Chart id={item.id} />}
+                      <Chart id={item.id} isLoading={!!(isChartLoading === item.id)} />
                     </styled.ListItem>
                   </>
                 ) : null}
@@ -147,6 +153,7 @@ export default connect(
   state => ({
     list: state.Repositories.list,
     isLoading: state.App.isLoading,
+    commitActivity: state.Repositories.activity,
   }),
   { fetchRepositoryCommitActivity }
 )(List);

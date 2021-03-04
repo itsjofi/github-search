@@ -1,4 +1,4 @@
-import { all, spawn, takeEvery, call, put, select } from 'redux-saga/effects';
+import { all, spawn, takeEvery, call, put } from 'redux-saga/effects';
 
 //UTILS
 import Api from '../../helpers/api';
@@ -11,11 +11,13 @@ export function* fetchRepositoriesByLanguageRequest() {
   yield takeEvery(actions.FETCH_REPOSITORIES_REQUEST, function* () {
     try {
       yield put({ type: appActions.SWITCH_IS_LOADING, payload: true });
+      yield put({ type: actions.CLEAN_COMMIT_ACTIVITY });
 
       let options = {
-        q: 'language:Javascript+language:Go+language:Python+language:PHP+language:Ruby',
+        q: `language:Javascript+language:Typescript+language:Go+language:Java+language:Python+pushed:>2020-01-01`,
         sort: 'stars',
         order: 'desc',
+        per_page: 100,
       };
 
       const result = yield call(Api.fetchRepositoriesByLanguage, options);
@@ -44,22 +46,10 @@ export function* fetchRepositoryCommitActivityRequest() {
         const result = yield call(Api.fetchRepositoryCommitActivity, owner, repo);
 
         if (result) {
-          let ownerCount = result.owner,
-            allCount = result.all,
-            newCount = {};
-
-          Object.values(ownerCount).forEach((count, index) => {
-            Object.values(allCount).forEach((c, i) => {
-              if (index === i) {
-                newCount[index] = count + c;
-              }
-            });
-          });
-
           yield put({
             type: actions.FETCH_REPOSITORY_COMMIT_ACTIVITY_SUCCESS,
             payload: {
-              [id]: newCount,
+              [id]: result.all,
             },
           });
         }
