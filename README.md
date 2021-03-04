@@ -3,12 +3,12 @@
 A aplicação irá buscar os repositórios com mais estrelas das seguintes linguagens:
 
 - <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank">JavaScript</a>
+- <a href="https://www.typescriptlang.org/docs/" target="_blank">Typescript</a>
 - <a href="https://golang.org/doc/" target="_blank">GoLang</a>
+- <a href="https://docs.oracle.com/en/java/" target="_blank">Java</a>
 - <a href="https://docs.python.org/3/" target="_blank">Python</a>
-- <a href="https://www.php.net/docs.php" target="_blank">PHP</a>
-- <a href="https://ruby-doc.org/" target="_blank">Ruby</a>
 
-Mostrando os detalhes de cada repositório e um gráfico da atividade de commits semanal.
+Mostrando os detalhes de cada repositório e um gráfico da atividade de commits das últimas 52 semanas.
 
 ## Preparação do ambiente
 
