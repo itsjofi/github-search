@@ -1,29 +1,21 @@
 import * as React from 'react';
 
-import { render, fireEvent } from '../../test-utils';
-
-import SearchCard from '../../src/components/SearchCard';
+import { render, fireEvent, initialState } from '../../test-utils';
 import { getByTestId } from '@testing-library/dom';
 
-const initialState = {
-  Repositories: {
-    list: {
-      items: [],
-      incomplete_results: false,
-      total_count: 0,
-    },
-    activity: {},
-  },
-  App: {
-    isLoading: false,
-  },
-};
+import SearchCard from '../../src/components/SearchCard';
 
-describe('SearchCard', () => {
-  it('should render a <div />, with a <button /> and click on the button', () => {
+describe('<SearchCard />', () => {
+  it('Renders in DOM', () => {
+    render(<SearchCard />, { initialState });
+  });
+
+  it('Expects to fire the onClick event when button is pressed in the DOM', () => {
     const { container } = render(<SearchCard />, { initialState });
 
     const searchButton = getByTestId(container, 'search-button');
+    expect(searchButton).toBeDefined();
+
     fireEvent.click(searchButton);
   });
 });

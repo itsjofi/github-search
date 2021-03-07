@@ -76,7 +76,7 @@ const List = props => {
     <styled.Container container>
       <styled.ListWrapper item md={6} sm={12} xs={12}>
         <styled.UnorderedList>
-          {props.list.items.map((item, index) => {
+          {props.list.items.map(item => {
             return (
               <React.Fragment key={item.id}>
                 <styled.ListItem
