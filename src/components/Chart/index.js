@@ -62,7 +62,7 @@ const Chart = props => {
         ) : (
           <styled.ImageContainer>
             <span>Nenhum histórico de commits encontrado</span>
-            <img src='/notFound.svg' height={450} width={350} />
+            <img src='/notFound.svg' height={450} width={350} alt='Mulher pedindo desculpas'/>
           </styled.ImageContainer>
         )}
       </>
